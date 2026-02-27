@@ -1,0 +1,106 @@
+from random import choice, random
+import turtle
+
+drawing_screen = turtle.Screen()
+Ricky = turtle.Turtle()
+Ricky.shape("turtle")
+Ricky.speed(5)
+background_color = "#8DB0C5"
+drawing_screen.bgcolor(background_color)
+
+#sun 
+
+Ricky.fillcolor("#F2C14E")
+Ricky.pencolor("#F2C14E")
+Ricky.begin_fill()
+Ricky.up()
+Ricky.goto(0, 200)
+Ricky.down()
+Ricky.circle(70)
+Ricky.end_fill()
+
+
+#Ground Shape and color
+
+Ricky.fillcolor("#473931")
+Ricky.begin_fill()
+Ricky.up()
+Ricky.goto(-500,0)
+Ricky.down()
+for _ in range (4): 
+    Ricky.forward(1000)
+    Ricky.right(90)
+Ricky.end_fill()
+
+
+#Mountains
+
+Ricky.fillcolor("#292D28")
+Ricky.pencolor("#292D28")
+
+def draw_mountain():
+    Ricky.begin_fill()
+    Ricky.left(40)
+    Ricky.forward(400)
+    for _ in range(20):
+        Ricky.forward(5)
+        Ricky.right(4)
+    Ricky.forward(415)
+    Ricky.end_fill()
+
+draw_mountain()
+Ricky.goto(-180,0)
+Ricky.left(40)
+Ricky.fillcolor("#4C5749")
+Ricky.pencolor("#4C5749")
+draw_mountain()
+
+
+#Draw trees
+
+
+Ricky.penup()
+Ricky.home()
+Ricky_colors = ["#223329", "#33442E", "#42503B"]
+
+
+def triangle(size):
+    Ricky.begin_fill()
+    for _ in range(3):
+        Ricky.forward(size)
+        Ricky.left(120)
+    Ricky.end_fill()
+
+import math
+
+def draw_tree(x, y, base, height):
+    Ricky.color(choice(Ricky_colors))
+    Ricky.up()
+    Ricky.goto(x, y)
+    Ricky.setheading(0)   
+    Ricky.down()
+
+    for _ in range(3):
+        #Ricky.fillcolor(choice(Ricky_colors))
+        triangle(base)
+
+        Ricky.up()
+        Ricky.left(90)              # points north
+        Ricky.forward(height)
+        Ricky.right(90)             # restores east-facing heading
+        Ricky.down()
+
+def random_trees(x_range, y_range, base, height, amount):
+    for _ in range(amount):
+        x = random.randint(*x_range)
+        y = random.randint(*y_range)
+        draw_tree(x, y, base, height)
+
+random_trees((-500, 500), (-100, 0), base=80, height=25, amount=40)
+random_trees((-500, 500), (-300, -150), base=100, height=35, amount=20)
+random_trees((-500, 500), (-600, -400), base=180, height=50, amount=15)
+
+
+
+drawing_screen.mainloop()
+
